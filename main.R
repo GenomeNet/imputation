@@ -11,12 +11,12 @@ close(fileConn)
 close(file.stdin)
 
 args = commandArgs(trailingOnly=TRUE)
-model <- keras::load_model_hdf5("VirusNetGenus.hdf5", compile = FALSE)
+model <- keras::load_model_hdf5("model_imputation.hdf5", compile = FALSE)
 genus_labels <- readRDS("labels.rds")
 message("Processing file")
 
 pred <- predict_model(vocabulary=c("A", "C", "G", "T", "N"),output_format = "one_seq",
-                      model = model1,
+                      model = model,
                       layer_name = "flatten", 
                       sequence = NULL,
                       path_input = "~/file.fasta",

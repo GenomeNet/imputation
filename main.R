@@ -1,7 +1,4 @@
 library(deepG)
-library(magrittr)
-library(ggplot2)
-library(keras)
 
 sequence <- microseq::readFasta("example.fasta")$Sequence
 

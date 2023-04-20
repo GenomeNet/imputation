@@ -47,7 +47,6 @@ if (len>maxlen){
                       padding = "standard",
                       mode = "label",
                       format = "fasta")
-  k <- 0
 } else{
   k <- (maxlen-len)*4
 }
@@ -60,23 +59,40 @@ last_addition <- (maxlen - last_piece)*4
 n_positions <- which(strsplit(sequence, "")[[1]] == "N")
 i=1 
 
-
-while (i<=length(n_positions)){
-  j <- n_positions[i] 
-  j_rem_maxlen <- ((j-1) %% maxlen) +1
-  if  (j<=last_pred){
-    a = which.max(pred$state[((j-1)%/%maxlen)+1,(k+j_rem_maxlen*4-3):(k+j_rem_maxlen*4)])
-    if (a==1){
-      substring(sequence, j) <- "A"
-    }else if (a==2){
-      substring(sequence, j) <- "C"
-    }else if (a==3){
-      substring(sequence, j) <- "G"
-    }else if (a==4){
-      substring(sequence, j) <- "T"
+if (len>maxlen){
+  while (i<=length(n_positions)){
+    j <- n_positions[i] 
+    j_rem_maxlen <- ((j-1) %% maxlen) +1
+    if  (j<=last_pred){
+      a = which.max(pred$state[((j-1)%/%maxlen)+1,(j_rem_maxlen*4-3):(j_rem_maxlen*4)])
+      if (a==1){
+        substring(sequence, j) <- "A"
+      }else if (a==2){
+        substring(sequence, j) <- "C"
+      }else if (a==3){
+        substring(sequence, j) <- "G"
+      }else if (a==4){
+        substring(sequence, j) <- "T"
+      } 
+    } else {
+      a = which.max(pred1$state[1,(last_addition+j_rem_maxlen*4-3):(last_addition+j_rem_maxlen*4)])
+      if (a==1){
+        substring(sequence, j) <- "A"
+      }else if (a==2){
+        substring(sequence, j) <- "C"
+      }else if (a==3){
+        substring(sequence, j) <- "G"
+      }else if (a==4){
+        substring(sequence, j) <- "T"
+      }
     } 
-  } else {
-    a = which.max(pred1$state[1,(last_addition+j_rem_maxlen*4-3):(last_addition+j_rem_maxlen*4)])
+  i <- i+1
+  }
+} else {
+  while (i<=length(n_positions)){
+    j <- n_positions[i] 
+    j_rem_maxlen <- ((j-1) %% maxlen) +1
+    a = which.max(pred$state[1,(k+j_rem_maxlen*4-3):(k+j_rem_maxlen*4)])
     if (a==1){
       substring(sequence, j) <- "A"
     }else if (a==2){
@@ -86,8 +102,8 @@ while (i<=length(n_positions)){
     }else if (a==4){
       substring(sequence, j) <- "T"
     }
-  } 
   i <- i+1
+  } 
 }
 
 #here is to test how many of mismatches there are out of 5000. there should be no Ns in your fasta file to test this

@@ -15,7 +15,7 @@ len <- nchar(sequence)
 maxlen <- 100
 pred <- predict_model(vocabulary=c("a", "c", "g", "t", "n"),
                       output_format = "one_seq",
-                      model = model1,
+                      model = model,
                       layer_name = "flatten_4",
                       path_input = "example.fasta",
                       sequence = sequence,
@@ -34,7 +34,7 @@ pred <- predict_model(vocabulary=c("a", "c", "g", "t", "n"),
 if (len>maxlen){
   pred1 <- predict_model(vocabulary=c("a", "c", "g", "t", "n"),
                       output_format = "one_seq",
-                      model = model1,
+                      model = model,
                       layer_name = "flatten_4",
                       path_input = "example.fasta",
                       sequence = substr(sequence, len-maxlen+1, len),

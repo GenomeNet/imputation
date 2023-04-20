@@ -29,8 +29,8 @@ pred <- predict_model(vocabulary=c("a", "c", "g", "t", "n"),
                       mode = "label",
                       format = "fasta")
 
-#this is for the last prediction, for example if the sequence is 2700 nt long, the first 2000 is classified using the function above
-#the last 700 is using this.
+#this is for the last prediction, for example if the sequence is 2770 nt long, the first 2700 is classified using the function above
+#the last 70 is using this.
 if (len>maxlen){
   pred1 <- predict_model(vocabulary=c("a", "c", "g", "t", "n"),
                       output_format = "one_seq",
